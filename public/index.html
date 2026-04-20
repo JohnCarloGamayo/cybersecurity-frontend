@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Precision Curator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Sora:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="mesh"></div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-icon">P</div>
+          <div>
+            <h1>Precision Curator</h1>
+            <p>Professional Tier</p>
+          </div>
+        </div>
+
+        <button class="cta">+ New Project</button>
+
+        <nav class="nav-links">
+          <a class="active" href="#">My Drive</a>
+          <a href="#">Shared with me</a>
+          <a href="#">Recent</a>
+          <a href="#">Starred</a>
+          <a href="#">Trash</a>
+        </nav>
+
+        <div class="storage-card">
+          <span>Storage</span>
+          <div class="bar">
+            <div class="fill"></div>
+          </div>
+          <small>12.4 GB of 15 GB used</small>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <input type="text" placeholder="Search in Precision Drive" aria-label="Search files" />
+        </header>
+
+        <section class="hero">
+          <div>
+            <h2>My Workspace</h2>
+            <p>Curate your assets with architectural precision.</p>
+          </div>
+          <div class="chip-row">
+            <button class="chip">Modified</button>
+            <button class="chip">Grid</button>
+          </div>
+        </section>
+
+        <section class="folders">
+          <h3>Folders</h3>
+          <div class="folder-grid">
+            <article class="folder-card">
+              <h4>Work</h4>
+              <p>1,240 files • 4.2 GB</p>
+            </article>
+            <article class="folder-card">
+              <h4>Personal</h4>
+              <p>458 files • 1.8 GB</p>
+            </article>
+            <article class="folder-card">
+              <h4>Photos</h4>
+              <p>2,890 files • 12 GB</p>
+            </article>
+            <article class="folder-card">
+              <h4>Project X</h4>
+              <p>124 files • 850 MB</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="files">
+          <div class="section-head">
+            <h3>Recent Files</h3>
+            <a href="#">See history</a>
+          </div>
+          <div class="file-grid">
+            <article class="file-card image">
+              <div class="thumb"></div>
+              <h4>Golden Gate Evening.jpg</h4>
+              <p>Modified 2h ago • 4.2 MB</p>
+            </article>
+            <article class="file-card doc">
+              <div class="thumb"></div>
+              <h4>Project Proposal.pdf</h4>
+              <p>Modified 5h ago • 1.1 MB</p>
+            </article>
+            <article class="file-card report">
+              <div class="thumb"></div>
+              <h4>Quarterly Review.docx</h4>
+              <p>Modified Yesterday • 240 KB</p>
+            </article>
+            <article class="file-card interior">
+              <div class="thumb"></div>
+              <h4>Office Interior.jpg</h4>
+              <p>Modified 1d ago • 2.6 MB</p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

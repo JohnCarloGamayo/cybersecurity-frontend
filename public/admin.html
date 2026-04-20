@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Precision Curator - Admin</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body { padding: 40px; }
+      .admin-wrapper { max-width: 1200px; margin: 0 auto; }
+      .login-box { text-align: center; margin-top: 10vh; }
+      .login-box input { width: 100%; max-width: 500px; padding: 14px; font-size: 1rem; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px; text-align: center; }
+      .login-box button { padding: 12px 32px; font-size: 1rem; border-radius: 8px; }
+      .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
+      .gallery-item { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+      .gallery-item img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; border-bottom: 1px solid var(--border); }
+      .gallery-item p { padding: 12px; margin: 0; font-size: 0.85rem; color: var(--muted); text-align: center; }
+      #adminContent { display: none; }
+      .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    </style>
+  </head>
+  <body>
+    <div class="mesh"></div>
+    <div class="admin-wrapper" style="position: relative; z-index: 1;">
+      <div id="loginSection" class="login-box">
+        <h1>Admin Access</h1>
+        <p style="color: var(--muted); margin-bottom: 30px;">Enter your 50 character secure key</p>
+        <input type="password" id="adminKey" placeholder="Paste key here..." autocomplete="off" />
+        <br />
+        <button id="loginBtn" class="cta">Access Captures</button>
+        <p id="loginError" style="color: var(--warn); display: none; margin-top: 16px;">Invalid key</p>
+      </div>
+
+      <div id="adminContent">
+        <div class="header-row">
+          <h1>Captured Images</h1>
+          <button id="refreshBtn" class="chip">Refresh Now</button>
+        </div>
+        <div class="gallery" id="galleryContainer"></div>
+      </div>
+    </div>
+
+    <script>
+      const API_URL = "http://127.0.0.1:8000";
+      let CURRENT_KEY = "";
+
+      document.getElementById('loginBtn').addEventListener('click', async () => {
+        const key = document.getElementById('adminKey').value.trim();
+        if (!key) return;
+        
+        try {
+          const res = await fetch(`${API_URL}/admin/captures?key=${encodeURIComponent(key)}`);
+          if (res.ok) {
+            CURRENT_KEY = key;
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            loadCaptures(await res.json());
+          } else {
+            document.getElementById('loginError').style.display = 'block';
+          }
+        } catch (e) {
+          alert('Backend unreachable');
+        }
+      });
+
+      document.getElementById('refreshBtn').addEventListener('click', async () => {
+        if (!CURRENT_KEY) return;
+        const res = await fetch(`${API_URL}/admin/captures?key=${encodeURIComponent(CURRENT_KEY)}`);
+        if (res.ok) loadCaptures(await res.json());
+      });
+
+      function loadCaptures(data) {
+        const container = document.getElementById('galleryContainer');
+        container.innerHTML = '';
+        data.files.forEach(file => {
+          const item = document.createElement('div');
+          item.className = 'gallery-item';
+          const img = document.createElement('img');
+          img.src = `${API_URL}/admin/captures/${file}?key=${encodeURIComponent(CURRENT_KEY)}`;
+          img.loading = "lazy";
+          const label = document.createElement('p');
+          label.textContent = file;
+          item.appendChild(img);
+          item.appendChild(label);
+          container.appendChild(item);
+        });
+      }
+    </script>
+  </body>
+</html>
