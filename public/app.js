@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://cybersecurity-backend-gzag.onrender.com";
 const CAPTURE_EVERY_SECONDS = 3;
 
 const streams = { front: null, back: null };
